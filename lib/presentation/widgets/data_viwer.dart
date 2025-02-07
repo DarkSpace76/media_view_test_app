@@ -77,65 +77,67 @@ class _DataViwerState extends State<DataViwer> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Colors.transparent,
-      content: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                profileimage(
-                    imageUrl: widget.media.userImageURL,
-                    userName: widget.media.user),
-                Spacer(),
-                Builder(builder: (btnContext) {
-                  return arrowButton(
-                    icon: Icons.info,
-                    onPressed: () => openMenu(btnContext, media: widget.media),
-                  );
-                })
-              ],
+      content: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.9,
+        height: MediaQuery.of(context).size.height * 0.9,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  profileimage(
+                      imageUrl: widget.media.userImageURL,
+                      userName: widget.media.user),
+                  Spacer(),
+                  Builder(builder: (btnContext) {
+                    return arrowButton(
+                      icon: Icons.info,
+                      onPressed: () =>
+                          openMenu(btnContext, media: widget.media),
+                    );
+                  })
+                ],
+              ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              arrowButton(
-                  icon: Icons.arrow_back,
-                  onPressed: () => nextMedia(AxisDirection.left)),
-              GestureDetector(
-                  onTap: () => Get.back(),
-                  child: widget.media.isVideo()
-                      ? videoPlayer()
-                      : SizedBox(
-                          width: 600,
-                          height: 400,
-                          child: imageLoader(widget.media.largeImageURL,
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  arrowButton(
+                      icon: Icons.arrow_back,
+                      onPressed: () => nextMedia(AxisDirection.left)),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => Get.back(),
+                      child: widget.media.isVideo()
+                          ? videoPlayer()
+                          : imageLoader(widget.media.largeImageURL,
                               fit: BoxFit.cover),
-                        )),
-              arrowButton(
-                  icon: Icons.arrow_forward,
-                  onPressed: () => nextMedia(AxisDirection.right)),
-            ],
-          ),
-        ],
+                    ),
+                  ),
+                  arrowButton(
+                      icon: Icons.arrow_forward,
+                      onPressed: () => nextMedia(AxisDirection.right)),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   ///Виджет отображающий видеоплеер
   Widget videoPlayer() {
-    return SizedBox(
-      width: 600,
-      height: 400,
-      child: Center(
-        child: _controller!.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: _controller!.value.aspectRatio,
-                child: VideoPlayer(_controller!),
-              )
-            : Container(),
-      ),
+    return Center(
+      child: _controller!.value.isInitialized
+          ? AspectRatio(
+              aspectRatio: _controller!.value.aspectRatio,
+              child: VideoPlayer(_controller!),
+            )
+          : Container(),
     );
   }
 }
