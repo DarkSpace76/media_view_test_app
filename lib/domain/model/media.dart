@@ -104,26 +104,41 @@ class Media {
     );
   }
 
-  Map<String, dynamic> toInfo() => <String, dynamic>{
-        'id': 'id изображения: $id',
-        'pageURL': 'Домашняя страница: $pageURL',
-        'type': 'Тип: $type',
-        'tags': 'Тэги: $tags',
-        'previewURL': 'Ссылка preview: $previewURL',
-        'previewHeight': 'Высота preview: $previewHeight',
-        'previewWidth': 'Ширина preview: $previewWidth',
-        'webformatURL': 'URL web формат: $webformatURL',
-        'webformatWidth': 'Ширина web: $webformatWidth',
-        'webformatHeight': 'Высота web: $webformatHeight',
-        'largeImageURL': 'Ссылка на оригинал: $largeImageURL',
-        'imageWidth': 'Ширина: $imageWidth',
-        'imageHeight': 'Высота: $imageHeight',
-        'imageSize': 'Размер: $imageSize',
-        'views': 'Количество просмотров: $views',
-        'downloads': 'Количество загрузок: $downloads',
-        'user_id': 'id пользователя: $userId',
-        'user': 'Пользователь: $user',
-      };
+  Map<String, dynamic> toInfo() => isVideo()
+      ? <String, dynamic>{
+          'id': 'id изображения: $id',
+          'pageURL': 'Домашняя страница: $pageURL',
+          'type': 'Тип: $type',
+          'tags': 'Тэги: $tags',
+          'large': 'Видео [large]: ${large?.url}',
+          'medium': 'Видео [medium] : ${medium?.url}',
+          'small': 'Видео [small] : ${small?.url}',
+          'tiny': 'Видео [tiny] : ${tiny?.url}',
+          'views': 'Количество просмотров: $views',
+          'downloads': 'Количество загрузок: $downloads',
+          'user_id': 'id пользователя: $userId',
+          'user': 'Пользователь: $user',
+        }
+      : <String, dynamic>{
+          'id': 'id изображения: $id',
+          'pageURL': 'Домашняя страница: $pageURL',
+          'type': 'Тип: $type',
+          'tags': 'Тэги: $tags',
+          'previewURL': 'Ссылка preview: $previewURL',
+          'previewHeight': 'Высота preview: $previewHeight',
+          'previewWidth': 'Ширина preview: $previewWidth',
+          'webformatURL': 'URL web формат: $webformatURL',
+          'webformatWidth': 'Ширина web: $webformatWidth',
+          'webformatHeight': 'Высота web: $webformatHeight',
+          'largeImageURL': 'Ссылка на оригинал: $largeImageURL',
+          'imageWidth': 'Ширина: $imageWidth',
+          'imageHeight': 'Высота: $imageHeight',
+          'imageSize': 'Размер: $imageSize',
+          'views': 'Количество просмотров: $views',
+          'downloads': 'Количество загрузок: $downloads',
+          'user_id': 'id пользователя: $userId',
+          'user': 'Пользователь: $user',
+        };
 }
 
 ///Объект  [VideoQuality] хранит данные о видеофайле
